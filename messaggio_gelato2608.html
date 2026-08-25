@@ -112,6 +112,57 @@ h1 em{
 .message p:nth-of-type(3){animation-delay:.75s;}
 .message p:nth-of-type(4){animation-delay:.9s;}
 
+.clue{
+  position:relative; z-index:2;
+  margin-top:30px;
+  width:min(480px, 100%);
+  opacity:0;
+  animation: fadeDown .9s ease forwards 1s;
+}
+.clue summary{
+  cursor:pointer;
+  list-style:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Marcellus', serif;
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid rgba(205,164,94,0.35);
+  background:var(--card-bg);
+  backdrop-filter:blur(6px);
+  padding:12px 20px;
+  transition:color .2s ease, border-color .2s ease;
+}
+.clue summary::-webkit-details-marker{ display:none; }
+.clue summary:hover{ color:var(--gold-bright); border-color:var(--gold-bright); }
+.clue summary::after{
+  content:'';
+  width:8px; height:8px;
+  border-right:1px solid var(--gold);
+  border-bottom:1px solid var(--gold);
+  transform:rotate(45deg);
+  transition:transform .25s ease;
+  flex-shrink:0;
+}
+.clue[open] summary::after{ transform:rotate(-135deg); }
+.clue-content{
+  display:inline-block;
+  margin-top:14px;
+  padding:6px;
+  border:1px solid rgba(205,164,94,0.25);
+  background:rgba(10,10,20,0.4);
+}
+.clue-content img{
+  display:block;
+  width:168px;
+  height:168px;
+  object-fit:cover;
+  border-radius:2px;
+}
+
 .signature{
   position:relative; z-index:2;
   margin-top:30px;
@@ -120,7 +171,7 @@ h1 em{
   font-size:16px;
   color:var(--gold-bright);
   opacity:0;
-  animation: fadeDown .9s ease forwards 1.05s;
+  animation: fadeDown .9s ease forwards 1.15s;
 }
 
 .back{
@@ -136,7 +187,7 @@ h1 em{
   color:rgba(205,164,94,0.7);
   text-decoration:none;
   opacity:0;
-  animation: fadeDown .9s ease forwards 1.2s;
+  animation: fadeDown .9s ease forwards 1.3s;
 }
 .back:hover{ color:var(--gold-bright); }
 .back .line{
@@ -169,10 +220,17 @@ h1 em{
 
   <div class="message">
     <p>Ore 16:30, il caldo fa la sua parte,<br>c'è una sola risposta, non serve arte.</p>
-    <p>Gelato sì o gelato no?<br>La risposta la conosci già, lo so.</p>
-    <p>Due palline o forse tre,<br>la scelta è solo un pretesto per stare con te.</p>
-    <p>Preparati che usciamo pian piano,<br>il mistero cammina, tienimi per mano.</p>
+    <p>Maxibon, fior di fragola o Valsoia,<br>la risposta la conosci, sarà una vera gioia.</p>
+    <p>Fragola, pistacchio o nocciola intera,<br>basta che tu scelga prima che sia sera.</p>
+    <p>Preparati, stasera si esce, forza andiamo,<br>il prossimo indizio insieme lo troviamo.</p>
   </div>
+
+  <details class="clue">
+    <summary>Rivela indizio</summary>
+    <div class="clue-content">
+      <img src="indizi/gelato2608.png" alt="Indizio Cap. 4" loading="lazy">
+    </div>
+  </details>
 
   <div class="signature">— AR.</div>
 
