@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Buonanotte</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Marcellus&display=swap');
+
+:root{
+  --night-top:#0a0e1f;
+  --night-glow:#3a2350;
+  --gold:#cda45e;
+  --gold-bright:#f0cf8a;
+  --ember:#e8623c;
+  --ember-soft:#ff8a4c;
+  --cream:#f4ecdd;
+  --card-bg:rgba(10,10,20,0.55);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+html,body{
+  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
+  background:var(--night-top);
+  font-family:'Cormorant Garamond', serif;
+  color:var(--cream);
+  overflow-x:hidden;
+}
+
+.stage{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:60px 22px;
+  text-align:center;
+  background:
+    radial-gradient(ellipse 900px 600px at 50% 18%, var(--night-glow) 0%, transparent 60%),
+    linear-gradient(180deg, var(--night-top) 0%, #100a26 45%, #1a1030 75%, #060309 100%);
+}
+
+.stars{
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 15%, rgba(244,236,221,0.9), transparent),
+    radial-gradient(1px 1px at 25% 8%, rgba(244,236,221,0.7), transparent),
+    radial-gradient(1.5px 1.5px at 40% 22%, rgba(244,236,221,0.8), transparent),
+    radial-gradient(1px 1px at 62% 10%, rgba(244,236,221,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 78% 18%, rgba(244,236,221,0.9), transparent),
+    radial-gradient(1px 1px at 88% 6%, rgba(244,236,221,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 55% 30%, rgba(244,236,221,0.5), transparent),
+    radial-gradient(1px 1px at 8% 32%, rgba(244,236,221,0.5), transparent);
+  animation: twinkleStars 5s ease-in-out infinite alternate;
+}
+@keyframes twinkleStars{ from{opacity:.6;} to{opacity:1;} }
+
+.eyebrow{
+  position:relative; z-index:2;
+  font-family:'Marcellus', serif;
+  letter-spacing:0.3em;
+  font-size:11px;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:14px;
+  opacity:0;
+  animation: fadeDown .9s ease forwards .1s;
+}
+
+h1{
+  position:relative; z-index:2;
+  font-family:'Marcellus', serif;
+  font-weight:400;
+  font-size:clamp(30px, 7vw, 48px);
+  letter-spacing:0.01em;
+  color:var(--cream);
+  text-shadow:0 0 30px rgba(240,207,138,0.25);
+  opacity:0;
+  animation: fadeDown 1s ease forwards .25s;
+  max-width:600px;
+}
+h1 em{
+  font-style:italic;
+  color:var(--gold-bright);
+}
+
+.message{
+  position:relative; z-index:2;
+  margin-top:26px;
+  width:min(480px, 100%);
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.message p{
+  font-size:19px;
+  line-height:1.55;
+  color:rgba(244,236,221,0.85);
+  opacity:0;
+  animation: fadeDown .9s ease forwards;
+}
+.message p:nth-of-type(1){animation-delay:.45s;}
+.message p:nth-of-type(2){animation-delay:.6s;}
+.message p:nth-of-type(3){animation-delay:.75s;}
+.message p:nth-of-type(4){animation-delay:.9s;}
+
+.signature{
+  position:relative; z-index:2;
+  margin-top:30px;
+  font-family:'Marcellus', serif;
+  font-style:italic;
+  font-size:16px;
+  color:var(--gold-bright);
+  opacity:0;
+  animation: fadeDown .9s ease forwards 1.05s;
+}
+
+.back{
+  position:relative; z-index:2;
+  margin-top:50px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Marcellus', serif;
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(205,164,94,0.7);
+  text-decoration:none;
+  opacity:0;
+  animation: fadeDown .9s ease forwards 1.2s;
+}
+.back:hover{ color:var(--gold-bright); }
+.back .line{
+  width:24px; height:1px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+}
+
+@keyframes fadeDown{
+  from{opacity:0; transform:translateY(-12px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@media (max-width:390px){
+  .stage{ padding:44px 16px; }
+  .message p{ font-size:17px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="stars"></div>
+
+  <div class="eyebrow">Cap. 0 — Buonanotte</div>
+  <h1>Comunicazione di <em>servizio</em></h1>
+
+  <div class="message">
+    <p>Allora, Tiziana, comunicazione ufficiale delle ore piccole: da domani parte un piccolo mistero, e tu ne sei la protagonista assoluta — il casting era già chiuso, niente reclami.</p>
+    <p>Per stasera l'unico compito richiesto è: chiudere gli occhi, spegnere il cervello che sta sicuramente ancora ronzando su mille cose, e dormire come si deve.</p>
+    <p>Domattina si continua.</p>
+    <p>Buonanotte, disturbatrice ufficiale dei miei pensieri. 🌙</p>
+  </div>
+
+  <div class="signature">— A.</div>
+
+  <a class="back" href="index.html">
+    <span class="line"></span>
+    Torna all'indice
+  </a>
+</div>
+
+</body>
+</html>
