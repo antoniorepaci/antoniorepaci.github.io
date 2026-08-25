@@ -102,6 +102,36 @@ h1 em{
   animation: fadeDown 1s ease forwards .4s;
 }
 
+.countdown{
+  position:relative; z-index:2;
+  margin-top:26px;
+  display:flex;
+  gap:18px;
+  opacity:0;
+  animation: fadeDown 1s ease forwards .48s;
+}
+.countdown-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-width:52px;
+}
+.countdown-num{
+  font-family:'Marcellus', serif;
+  font-size:clamp(22px, 5vw, 30px);
+  color:var(--gold-bright);
+  text-shadow:0 0 20px rgba(240,207,138,0.25);
+  font-variant-numeric:tabular-nums;
+}
+.countdown-label{
+  margin-top:4px;
+  font-family:'Marcellus', serif;
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(205,164,94,0.7);
+}
+
 .links{
   position:relative; z-index:2;
   width:min(420px, 100%);
@@ -199,6 +229,25 @@ h1 em{
   <h1>Tre <em>frammenti</em> di una notte</h1>
   <p class="subline">Ogni pagina custodisce una parte del mistero. Aprile una alla volta.</p>
 
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-days">00</span>
+      <span class="countdown-label">Giorni</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-hours">00</span>
+      <span class="countdown-label">Ore</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-mins">00</span>
+      <span class="countdown-label">Min</span>
+    </div>
+    <div class="countdown-item">
+      <span class="countdown-num" id="cd-secs">00</span>
+      <span class="countdown-label">Sec</span>
+    </div>
+  </div>
+
   <div class="links">
     <a class="link-card" href="messaggio_domani.html">
       <span class="link-text">
@@ -230,6 +279,44 @@ h1 em{
     Pagina non collegata — solo per chi ha il link
   </div>
 </div>
+
+<script>
+(function(){
+  var target = new Date(2026, 7, 27, 0, 0, 0); // 27/08/2026 00:00:00 (ora locale)
+  var elDays = document.getElementById('cd-days');
+  var elHours = document.getElementById('cd-hours');
+  var elMins = document.getElementById('cd-mins');
+  var elSecs = document.getElementById('cd-secs');
+  var elWrap = document.getElementById('countdown');
+
+  function pad(n){ return String(n).padStart(2, '0'); }
+
+  function tick(){
+    var diff = target.getTime() - Date.now();
+    if (diff <= 0){
+      elDays.textContent = '00';
+      elHours.textContent = '00';
+      elMins.textContent = '00';
+      elSecs.textContent = '00';
+      clearInterval(timer);
+      return;
+    }
+    var totalSeconds = Math.floor(diff / 1000);
+    var days = Math.floor(totalSeconds / 86400);
+    var hours = Math.floor((totalSeconds % 86400) / 3600);
+    var mins = Math.floor((totalSeconds % 3600) / 60);
+    var secs = totalSeconds % 60;
+
+    elDays.textContent = pad(days);
+    elHours.textContent = pad(hours);
+    elMins.textContent = pad(mins);
+    elSecs.textContent = pad(secs);
+  }
+
+  tick();
+  var timer = setInterval(tick, 1000);
+})();
+</script>
 
 </body>
 </html>
