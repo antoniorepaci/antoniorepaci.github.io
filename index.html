@@ -185,6 +185,14 @@ h1 em{
   flex-shrink:0;
 }
 
+.link-card.locked{
+  opacity:0.45 !important;
+  cursor:not-allowed;
+}
+.link-card.locked .arrow{
+  border-color:rgba(205,164,94,0.4);
+}
+
 .footer{
   position:relative; z-index:2;
   margin-top:44px;
@@ -227,7 +235,7 @@ h1 em{
 
   <div class="eyebrow">Archivio segreto</div>
   <h1><em>Frammenti</em> di una notte</h1>
-  <h1>Da trovare <em>dentro un giorno<em></em></h1>
+  <h1>Da trovare <em>dentro un giorno</em></h1>
   <p class="subline">Ogni pagina custodisce una parte del mistero.</p>
 
   <div class="countdown" id="countdown" aria-live="polite">
@@ -266,18 +274,12 @@ h1 em{
       <span class="arrow"></span>
     </a>
 
-    <a class="link-card" href="invito_compleanno.html">
-      <span class="link-text">
-        <span class="link-title">III. L'invito</span>
-        <span class="link-desc">Tutto quello che devi sapere</span>
-      </span>
-      <span class="arrow"></span>
-    </a>
+
   </div>
 
   <div class="footer">
     <div class="line"></div>
-    Pagina non collegata — solo per chi ha il link
+    Un evento irripetibile
   </div>
 </div>
 
@@ -316,6 +318,48 @@ h1 em{
 
   tick();
   var timer = setInterval(tick, 1000);
+})();
+
+(function(){
+  // Orario di sblocco per ciascun capitolo:
+  //  - null   -> nessuna restrizione, sempre disponibile
+  //  - Date   -> disponibile a partire da quella data/ora locale
+  //  - 'TBD'  -> bloccato a tempo indeterminato (data ancora da decidere)
+  var unlocks = {
+    'messaggio_gn2508.html': null,
+    'messaggio_gm2608.html': new Date(2026, 7, 26, 7, 0, 0), // 26/08/2026 07:00
+    'invito_compleanno.html': 'TBD'
+  };
+
+  var months = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+
+  function pad(n){ return String(n).padStart(2, '0'); }
+
+  function formatUnlock(date){
+    return pad(date.getDate()) + '/' + months[date.getMonth()] + ' · ' + pad(date.getHours()) + ':' + pad(date.getMinutes());
+  }
+
+  var cards = document.querySelectorAll('.link-card');
+  cards.forEach(function(card){
+    var href = card.getAttribute('href');
+    if (!Object.prototype.hasOwnProperty.call(unlocks, href)) return;
+
+    var unlock = unlocks[href];
+    if (unlock === null) return; // nessuna restrizione
+
+    var isLocked = (unlock === 'TBD') || (unlock.getTime() > Date.now());
+    if (!isLocked) return;
+
+    card.classList.add('locked');
+    card.removeAttribute('href');
+    card.setAttribute('aria-disabled', 'true');
+    card.setAttribute('tabindex', '-1');
+
+    var desc = card.querySelector('.link-desc');
+    if (desc){
+      desc.textContent = (unlock === 'TBD') ? 'Prossimamente' : ('Disponibile dal ' + formatUnlock(unlock));
+    }
+  });
 })();
 </script>
 
